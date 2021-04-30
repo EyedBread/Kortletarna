@@ -1,5 +1,5 @@
 # Kort-letarna (GPU stock finder)
-A bot written in python, which looks for graphicscard stock in the nordic market.
+A bot written in python, which looks for graphics card stock in the nordic market.
 
 ### Implemented Features
 None
