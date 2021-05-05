@@ -16,6 +16,8 @@ None
 
 ##### Working on
 - Webhallen.se
+- Inet.se
+- Proshop.se
 
 #### Requested
 - None
