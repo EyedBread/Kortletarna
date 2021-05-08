@@ -6,33 +6,48 @@ import urllib.request
 from bs4 import BeautifulSoup as bs
 from random import randrange
 
-URL = [#"https://www.webhallen.com/api/product/324215", #ASUS TUF GeForce RTX 3070 8GB Gaming OC
-       "https://www.webhallen.com/api/product/322879", #elscooter är i weblager
-       "https://www.webhallen.com/api/product/315277", #Asus TUF VG27AQ fyndvara är ej i weblager men är en beställningsvara och kan 
-       #"https://www.webhallen.com/api/product/321847-ASUS-GeForce-RTX-2060-6GB-DUAL-EVO-OC",
+
+# Setup
+
+# Api URLs
+URL = [
+       #3090
        "https://www.webhallen.com/api/product/331727-Zotac-Gaming-GeForce-RTX-3090-Trinity-24GB-OC",
        "https://www.webhallen.com/api/product/324101-ASUS-ROG-STRIX-GeForce-RTX-3090-24GB-Gaming-OC",
        "https://www.webhallen.com/api/product/324063-ASUS-TUF-GeForce-RTX-3090-24GB-Gaming-OC",
        "https://www.webhallen.com/api/product/324070-MSI-GeForce-RTX-3090-GAMING-X-TRIO-24GB",
        "https://www.webhallen.com/api/product/329090-ASUS-ROG-STRIX-GeForce-RTX-3090-Gaming-OC-24GB-GDDR6X-Vit",
        "https://www.webhallen.com/api/product/328719-Gigabyte-GeForce-RTX-3090-Turbo-24GB"
+       #3080
+
+       #3070
+
+       #3060
 ]
 
-Real_URL = [#"https://www.webhallen.com/api/product/324215", #ASUS TUF GeForce RTX 3070 8GB Gaming OC
-       "https://www.webhallen.com/se/product/322879", #elscooter är i weblager
-       "https://www.webhallen.com/se/product/315277", #Asus TUF VG27AQ fyndvara är ej i weblager men är en beställningsvara och kan 
-       #"https://www.webhallen.com/se/product/321847-ASUS-GeForce-RTX-2060-6GB-DUAL-EVO-OC",
+# Real URLs
+Real_URL = [
+       #3090
        "https://www.webhallen.com/se/product/331727-Zotac-Gaming-GeForce-RTX-3090-Trinity-24GB-OC",
        "https://www.webhallen.com/se/product/324101-ASUS-ROG-STRIX-GeForce-RTX-3090-24GB-Gaming-OC",
        "https://www.webhallen.com/se/product/324063-ASUS-TUF-GeForce-RTX-3090-24GB-Gaming-OC",
        "https://www.webhallen.com/se/product/324070-MSI-GeForce-RTX-3090-GAMING-X-TRIO-24GB",
        "https://www.webhallen.com/se/product/329090-ASUS-ROG-STRIX-GeForce-RTX-3090-Gaming-OC-24GB-GDDR6X-Vit",
        "https://www.webhallen.com/se/product/328719-Gigabyte-GeForce-RTX-3090-Turbo-24GB"
+       #3080
+
+       #3070
+
+       #3060
+
 ]
 
+# Settings (OBS!! Insert personal webhook)
 running = True
 found = False
 refreshTime = 37# seconds
+webhook_url = "insert_webhook_url_here"
+
 
 
 while running:
@@ -68,7 +83,6 @@ while running:
     
     if found:
         found = False
-        webhook_url = "https://hooks.slack.com/services/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"
         message = "In stock: " + Real_URL[card_nb]
         slack_data = {'text': message}
         data = json.dumps(slack_data)
@@ -81,9 +95,6 @@ while running:
                 'Request to slack returned an error %s, the response is:\n%s'
                 % (response.status_code, response.text)
         )
-        
-        
-        
         
         
     time.sleep(refreshTime)
