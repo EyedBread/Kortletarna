@@ -68,7 +68,7 @@ while running:
     
     if found:
         found = False
-        webhook_url = "https://hooks.slack.com/services/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"
+        webhook_url = "https://hooks.slack.com/services/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"
         message = "In stock: " + Real_URL[card_nb]
         slack_data = {'text': message}
         data = json.dumps(slack_data)
