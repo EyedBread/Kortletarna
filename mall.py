@@ -31,7 +31,7 @@ running = True
 # Time_between_cycles = 30 #seconds
 
 while(running):
-    time.sleep(30*1) #30 seconds wait, goal is 10 minutes but I don't have the patience when testing
+    time.sleep(60*1) #30 seconds wait, goal is 10 minutes but I don't have the patience when testing
     for card in cards:
         if card.sitename == "webhallen": #javascript exception
             webhallenFunc(card.url,card.name)

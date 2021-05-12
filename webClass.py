@@ -34,9 +34,9 @@ def inetFunc(url,name):
     #print(purchaseBox[0].button["class"])
     if "disabled" not in purchaseBox[0].button["class"]:
         print("I lager")
+        #Do something
     else:
         print("Slut i lager")
-        #Do something
 
 def proshopFunc(url,name):
     page_soup = parseHTML(url)
