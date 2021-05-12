@@ -64,7 +64,7 @@ class inet:
             print("I lager")
 
 
-g1 = webhallen('https://www.webhallen.com/api/product/324223','ASUS GeForce RTX 3070 Dual OC 8GB')
+#g1 = webhallen('https://www.webhallen.com/api/product/324223','ASUS GeForce RTX 3070 Dual OC 8GB')
 g1.func()
 g2 = webhallen('https://www.webhallen.com/api/product/324215','ASUS ROG STRIX GeForce RTX 3070 Gaming OC 8GB')
 g2.func()
