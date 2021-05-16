@@ -3,12 +3,14 @@ from bs4 import BeautifulSoup as soup
 import sys
 import json
 import requests
+from urllib.error import HTTPError, URLError
 
 
 def webhallenFunc(url,name):
     result = requests.get(url)
     if result.status_code != 200:
         print("ERROR!")
+        return
 
     with requests.Session() as session:
         response = session.get(url).json()
@@ -28,40 +30,57 @@ def webhallenFunc(url,name):
 
 def inetFunc(url,name):
     page_soup = parseHTML(url)
-
-    purchaseBox = page_soup.findAll("section",{"class":"box product-purchase"}) #
-    print('Product name:',name)
-    #print(purchaseBox[0].button["class"])
-    if "disabled" not in purchaseBox[0].button["class"]:
-        print("I lager")
-        #Do something
+    if page_soup == "exit":
+        return
     else:
-        print("Slut i lager")
+        purchaseBox = page_soup.findAll("section",{"class":"box product-purchase"}) #
+        print('Product name:',name)
+        #print(purchaseBox[0].button["class"])
+        if "disabled" not in purchaseBox[0].button["class"]:
+            print("I lager")
+            #Do something
+        else:
+            print("Slut i lager")
 
 def proshopFunc(url,name):
     page_soup = parseHTML(url)
-
-    purchaseBox = page_soup.find("div",{"class":"site-stock-text site-inline"})
-    print("Product name:",name)
-    if "I lager" not in purchaseBox.get_text():
-        print("Slut i lager")
-    elif "I lager" in purchaseBox.get_text():
-        print("I lager")
-        #Do something
+    if page_soup == "exit":
+        return
     else:
-        print("Error?")
+        purchaseBox = page_soup.find("div",{"class":"site-stock-text site-inline"})
+        print("Product name:",name)
+        if "I lager" not in purchaseBox.get_text():
+            print("Slut i lager")
+        elif "I lager" in purchaseBox.get_text():
+            print("I lager")
+            #Do something
+        else:
+            print("Error?")
 
 def parseHTML(url):
-    req = Request(url,headers={"User-Agent": "Mozilla/5.0"})
+    try:
+        req = Request(url,headers={"User-Agent": "Mozilla/5.0"})
 
-    uClient = urlopen(req)
+        uClient = urlopen(req)
 
-    page_html = uClient.read()
+        page_html = uClient.read()
 
-    uClient.close()
+        uClient.close()
 
-    page_soup = soup(page_html, "html.parser")
-    return page_soup
+        page_soup = soup(page_html, "html.parser")
+
+        return page_soup
+
+    except HTTPError as error:
+        contents = error.read()
+        print('Error in loading page')
+        print(contents)
+        return "exit"
+    except URLError as error:
+        contents = error.read()
+        print('Error in URL')
+        print(contents)
+        return "exit"
 
 #webhallenFunc('https://www.webhallen.com/api/product/324223','ASUS GeForce RTX 3070 Dual OC 8GB') #Ej i lager
 #webhallenFunc('https://www.webhallen.com/api/product/324215','ASUS ROG STRIX GeForce RTX 3070 Gaming OC 8GB') #Ej i lager

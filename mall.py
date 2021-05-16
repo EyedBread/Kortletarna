@@ -10,8 +10,10 @@ import time
 import csv
 
 class graphicsCard:
-    def __init__(self, name, url, sitename):
+    def __init__(self, name, manufacturer, model, url, sitename):
         self.name = name
+        self.manufacturer = manufacturer
+        self.model = model
         self.url = url
         self.sitename = sitename
 
@@ -23,15 +25,16 @@ with open ("grafikkort.csv") as csv_file:
     for row in csv_reader:
         if line_counter == 0:
             line_counter += 1
+        elif row[0]== "#":
+            line_counter +=1
         else:
-            cards.append(graphicsCard(row[0], row[1], row[2]))
+            cards.append(graphicsCard(row[0], row[1], row[2], row[3], row[4]))
             line_counter += 1
 
 running = True
 # Time_between_cycles = 30 #seconds
 
 while(running):
-    time.sleep(60*1) #30 seconds wait, goal is 10 minutes but I don't have the patience when testing
     for card in cards:
         if card.sitename == "webhallen": #javascript exception
             webhallenFunc(card.url,card.name)
@@ -40,4 +43,8 @@ while(running):
                 inetFunc(card.url,card.name)
             elif card.sitename == "proshop":
                 proshopFunc(card.url,card.name)
+            else:
+                print('Could not identify sitename!')
+        time.sleep(0.5)
+    time.sleep(60*10) #60 seconds wait, goal is 10 minutes but I don't have the patience when testing
                 
