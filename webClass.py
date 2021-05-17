@@ -77,9 +77,7 @@ def parseHTML(url):
         print(contents)
         return "exit"
     except URLError as error:
-        contents = error.read()
         print('Error in URL')
-        print(contents)
         return "exit"
 
 #webhallenFunc('https://www.webhallen.com/api/product/324223','ASUS GeForce RTX 3070 Dual OC 8GB') #Ej i lager
