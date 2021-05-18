@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup as soup
 import sys
 import json
 import requests
-from webClass import *
+from webFuncs import *
 #from notifications import *
 from random import randrange
 import time
