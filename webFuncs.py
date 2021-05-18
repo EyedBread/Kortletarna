@@ -6,7 +6,7 @@ import requests
 from urllib.error import HTTPError, URLError
 
 #
-def webhallenFunc(url,name):
+def webhallenFunc(url,name,app):
     result = requests.get(url)
     if result.status_code != 200:
         print("ERROR!")
@@ -26,9 +26,11 @@ def webhallenFunc(url,name):
             print("Slut i weblager. Beställningsvara")
         elif webStock != 0:
             print("I lager")
+            app.stockTrue(url,name)
+            #Update dataframe
             #Do something
 
-def inetFunc(url,name):
+def inetFunc(url,name,app):
     page_soup = parseHTML(url)
     if page_soup == "exit":
         return
@@ -38,11 +40,12 @@ def inetFunc(url,name):
         #print(purchaseBox[0].button["class"])
         if "disabled" not in purchaseBox[0].button["class"]:
             print("I lager")
-            #Do something
+            app.stockTrue(url,name)
+            #Update dataframe
         else:
             print("Slut i lager")
 
-def proshopFunc(url,name):
+def proshopFunc(url,name,app):
     page_soup = parseHTML(url)
     if page_soup == "exit":
         return
@@ -53,6 +56,10 @@ def proshopFunc(url,name):
             print("Slut i lager")
         elif "I lager" in purchaseBox.get_text():
             print("I lager")
+            app.stockTrue(url,name)
+            #df = app.getdf()
+            #df.loc[1, 'Proshop'] = 'I lager' # Trying to update the dataframe here
+            
             #Do something
         else:
             print("Error?")
