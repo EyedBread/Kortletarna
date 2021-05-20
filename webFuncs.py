@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup as soup
 import sys
 import json
 import requests
+from notifications import notification_slack
 from gui import *
 from urllib.error import HTTPError, URLError
 
@@ -30,6 +31,8 @@ def webhallenFunc(url,name):
             stockTrue(url,name)
             #Update dataframe
             #Do something
+            notification_slack(url,webStock)
+
 
 def inetFunc(url,name):
     page_soup = parseHTML(url)
@@ -43,6 +46,7 @@ def inetFunc(url,name):
             print("I lager")
             stockTrue(url,name)
             #Update dataframe
+            notification_slack(url,1)
         else:
             print("Slut i lager")
 
@@ -62,6 +66,7 @@ def proshopFunc(url,name):
             #df.loc[1, 'Proshop'] = 'I lager' # Trying to update the dataframe here
             
             #Do something
+            notification_slack(url, 1)
         else:
             print("Error?")
 
