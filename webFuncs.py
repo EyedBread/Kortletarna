@@ -4,6 +4,7 @@ import sys
 import json
 import requests
 from notifications import notification_slack
+from config import *
 from gui import *
 from urllib.error import HTTPError, URLError
 
@@ -28,9 +29,8 @@ def webhallenFunc(url,name):
             print("Slut i weblager. Beställningsvara")
         elif webStock != 0:
             print("I lager")
-            stockTrue(url,name,"webhallen")
-            #Do something
-            notification_slack(url,webStock)
+            if MSG_POPUP_GUI: stockTrue(url,name,"webhallen")
+            if MSG_SEND_SLACK: notification_slack(url,webStock)
 
 
 def inetFunc(url,name):
@@ -43,9 +43,8 @@ def inetFunc(url,name):
         #print(purchaseBox[0].button["class"])
         if "disabled" not in purchaseBox[0].button["class"]:
             print("I lager")
-            stockTrue(url,name,"inet")
-            #Update dataframe
-            notification_slack(url,1)
+            if MSG_POPUP_GUI: stockTrue(url,name,"inet")
+            if MSG_SEND_SLACK: notification_slack(url,1)
         else:
             print("Slut i lager")
 
@@ -60,12 +59,8 @@ def proshopFunc(url,name):
             print("Slut i lager")
         elif "I lager" in purchaseBox.get_text():
             print("I lager")
-            stockTrue(url,name,"proshop")
-            #df = app.getdf()
-            #df.loc[1, 'Proshop'] = 'I lager' # Trying to update the dataframe here
-            
-            #Do something
-            notification_slack(url, 1)
+            if MSG_POPUP_GUI: stockTrue(url,name,"proshop")
+            if MSG_SEND_SLACK: notification_slack(url, 1)
         else:
             print("Error?")
 
