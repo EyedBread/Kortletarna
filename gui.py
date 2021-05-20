@@ -1,6 +1,7 @@
 import tkinter as tk
 import threading
 from tkinter import Button, messagebox
+from numpy import index_exp
 
 from pandastable.plotting import TkOptions
 
@@ -34,22 +35,24 @@ import webbrowser
 #    
 #    def getdf(self):
 #        return self.df
-def stockTrue(url, name, sitename):
+def stockTrue(card, sitename):
     #Do something, like opening up a popup with link
     root = tk.Tk()
-    root.geometry("200x100")
+    root.geometry("200x130")
     string = "Du hittade ett grafikkort i " + str(sitename) + ":"
     text1 = tk.Label(root,text=string)
-    text2 = tk.Label(root,text=name)
+    text2 = tk.Label(root,text=card.name)
     text3 = tk.Label(root,text="Vill du öppna länken?")
-    open = Button(root, text ="Öppna länk", command = lambda: do(url,root))
+    open = Button(root, text ="Öppna länk", command=lambda: do(card.url,root))
     close = Button(root, text="Skippa", command=root.destroy)
+    remove = Button(root, text="Ta bort från lista", command=lambda: removed(card,root))
 
     text1.pack()
     text2.pack()
     text3.pack()
     open.pack()
     close.pack()
+    remove.pack()
     root.mainloop()
     return
     
@@ -58,6 +61,11 @@ def do(url,root):
     root.destroy()
     return
 
+def removed(card,root):
+    card.sitename = ""
+    print(card.name + " är borttagen från söklistan")
+    root.destroy()
+    return
 
 
 #df = pd.DataFrame({

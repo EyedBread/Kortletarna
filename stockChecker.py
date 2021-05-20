@@ -39,13 +39,16 @@ running = True
 while(running):
     for card in cards:
         if card.sitename == "webhallen": #javascript exception
-            webhallenFunc(card.url,card.name)
+            webhallenFunc(card)
         else:
             if card.sitename == "inet":
-                inetFunc(card.url,card.name)
+                inetFunc(card)
             elif card.sitename == "proshop":
-                proshopFunc(card.url,card.name)
+                proshopFunc(card)
+            elif card.sitename == "":
+                #do nothing
+                continue
             else:
                 print('Could not identify sitename!')
         time.sleep(0.5)
-    time.sleep(60*10) #60 seconds wait, goal is 10 minutes but I don't have the patience when testing
+    time.sleep(10) #60 seconds wait, goal is 10 minutes but I don't have the patience when testing

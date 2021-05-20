@@ -8,19 +8,19 @@ from gui import *
 from urllib.error import HTTPError, URLError
 
 #
-def webhallenFunc(url,name):
-    result = requests.get(url)
+def webhallenFunc(card):
+    result = requests.get(card.url)
     if result.status_code != 200:
         print("ERROR!")
         return
 
     with requests.Session() as session:
-        response = session.get(url).json()
+        response = session.get(card.url).json()
         webStock = response["product"]["stock"]["web"]
         supplierStock = response["product"]["stock"]["supplier"]
         displayCap = response["product"]["stock"]["displayCap"] #Based on my findings this differintiates the products who are completely out of stock and the items that are out of stock in weblager but you can still order them(and maybe also available in certain retail shops)
 
-    print("Product name:",name)
+    print("Product name:",card.name)
     if webStock == 0 and (supplierStock == 0 or supplierStock == None) and displayCap == 0:
         print("Slut i lager")
     else:
@@ -28,44 +28,44 @@ def webhallenFunc(url,name):
             print("Slut i weblager. Beställningsvara")
         elif webStock != 0:
             print("I lager")
-            stockTrue(url,name,"webhallen")
+            notification_slack(card.url,webStock)
+            stockTrue(card,"webhallen")
             #Do something
-            notification_slack(url,webStock)
 
 
-def inetFunc(url,name):
-    page_soup = parseHTML(url)
+def inetFunc(card):
+    page_soup = parseHTML(card.url)
     if page_soup == "exit":
         return
     else:
         purchaseBox = page_soup.findAll("section",{"class":"box product-purchase"}) #
-        print('Product name:',name)
+        print('Product name:',card.name)
         #print(purchaseBox[0].button["class"])
         if "disabled" not in purchaseBox[0].button["class"]:
             print("I lager")
-            stockTrue(url,name,"inet")
+            notification_slack(card.url,1)
+            stockTrue(card,"inet")
             #Update dataframe
-            notification_slack(url,1)
         else:
             print("Slut i lager")
 
-def proshopFunc(url,name):
-    page_soup = parseHTML(url)
+def proshopFunc(card):
+    page_soup = parseHTML(card.url)
     if page_soup == "exit":
         return
     else:
         purchaseBox = page_soup.find("div",{"class":"site-stock-text site-inline"})
-        print("Product name:",name)
+        print("Product name:",card.name)
         if "I lager" not in purchaseBox.get_text():
             print("Slut i lager")
         elif "I lager" in purchaseBox.get_text():
             print("I lager")
-            stockTrue(url,name,"proshop")
+            notification_slack(card.url,1)
+            stockTrue(card,"proshop")
             #df = app.getdf()
             #df.loc[1, 'Proshop'] = 'I lager' # Trying to update the dataframe here
             
             #Do something
-            notification_slack(url, 1)
         else:
             print("Error?")
 
