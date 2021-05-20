@@ -3,10 +3,11 @@ from bs4 import BeautifulSoup as soup
 import sys
 import json
 import requests
+from gui import *
 from urllib.error import HTTPError, URLError
 
 #
-def webhallenFunc(url,name,app):
+def webhallenFunc(url,name):
     result = requests.get(url)
     if result.status_code != 200:
         print("ERROR!")
@@ -26,11 +27,11 @@ def webhallenFunc(url,name,app):
             print("Slut i weblager. Beställningsvara")
         elif webStock != 0:
             print("I lager")
-            app.stockTrue(url,name)
+            stockTrue(url,name)
             #Update dataframe
             #Do something
 
-def inetFunc(url,name,app):
+def inetFunc(url,name):
     page_soup = parseHTML(url)
     if page_soup == "exit":
         return
@@ -40,12 +41,12 @@ def inetFunc(url,name,app):
         #print(purchaseBox[0].button["class"])
         if "disabled" not in purchaseBox[0].button["class"]:
             print("I lager")
-            app.stockTrue(url,name)
+            stockTrue(url,name)
             #Update dataframe
         else:
             print("Slut i lager")
 
-def proshopFunc(url,name,app):
+def proshopFunc(url,name):
     page_soup = parseHTML(url)
     if page_soup == "exit":
         return
@@ -56,7 +57,7 @@ def proshopFunc(url,name,app):
             print("Slut i lager")
         elif "I lager" in purchaseBox.get_text():
             print("I lager")
-            app.stockTrue(url,name)
+            stockTrue(url,name)
             #df = app.getdf()
             #df.loc[1, 'Proshop'] = 'I lager' # Trying to update the dataframe here
             
