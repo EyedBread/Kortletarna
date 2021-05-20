@@ -35,11 +35,11 @@ import webbrowser
 #    
 #    def getdf(self):
 #        return self.df
-def stockTrue(card, sitename):
+def stockTrue(card):
     #Do something, like opening up a popup with link
     root = tk.Tk()
     root.geometry("200x130")
-    string = "Du hittade ett grafikkort i " + str(sitename) + ":"
+    string = "Du hittade ett grafikkort i " + str(card.sitename) + ":"
     text1 = tk.Label(root,text=string)
     text2 = tk.Label(root,text=card.name)
     text3 = tk.Label(root,text="Vill du öppna länken?")

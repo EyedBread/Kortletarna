@@ -29,7 +29,7 @@ def webhallenFunc(card):
         elif webStock != 0:
             print("I lager")
             notification_slack(card.url,webStock)
-            stockTrue(card,"webhallen")
+            stockTrue(card)
             #Do something
 
 
@@ -44,7 +44,7 @@ def inetFunc(card):
         if "disabled" not in purchaseBox[0].button["class"]:
             print("I lager")
             notification_slack(card.url,1)
-            stockTrue(card,"inet")
+            stockTrue(card)
             #Update dataframe
         else:
             print("Slut i lager")
@@ -61,7 +61,7 @@ def proshopFunc(card):
         elif "I lager" in purchaseBox.get_text():
             print("I lager")
             notification_slack(card.url,1)
-            stockTrue(card,"proshop")
+            stockTrue(card)
             #df = app.getdf()
             #df.loc[1, 'Proshop'] = 'I lager' # Trying to update the dataframe here
             
