@@ -28,7 +28,6 @@ def webhallenFunc(url,name):
         elif webStock != 0:
             print("I lager")
             stockTrue(url,name)
-            #Update dataframe
             #Do something
 
 def inetFunc(url,name):
@@ -80,9 +79,7 @@ def parseHTML(url):
         return page_soup
 
     except HTTPError as error:
-        contents = error.read()
         print('Error in loading page')
-        print(contents)
         return "exit"
     except URLError as error:
         print('Error in URL')

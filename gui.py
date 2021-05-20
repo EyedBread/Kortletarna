@@ -1,6 +1,6 @@
 import tkinter as tk
 import threading
-from tkinter import messagebox
+from tkinter import Button, messagebox
 
 from pandastable.plotting import TkOptions
 
@@ -37,19 +37,25 @@ import webbrowser
 def stockTrue(url, name):
     #Do something, like opening up a popup with link
     root = tk.Tk()
-    response = messagebox.askquestion("I lager","Du hittade ett grafikkort! Vill du öppna länken?")
-    if response == "yes":
-        #Open url
-        webbrowser.open(url)
-        root.destroy()
-        return
-    elif response == "no":
-        #close popup and resume rest of the code
-        root.destroy()
-        return
+    root.geometry("175x100")
+    text1 = tk.Label(root,text="Du hittade ett grafikkort:")
+    text2 = tk.Label(root,text=name)
+    text3 = tk.Label(root,text="Vill du öppna länken?")
+    open = Button(root, text ="Öppna länk", command = lambda: do(url,root))
+    close = Button(root, text="Skippa", command=root.destroy)
+
+    text1.pack()
+    text2.pack()
+    text3.pack()
+    open.pack()
+    close.pack()
     root.mainloop()
     return
     
+def do(url,root):
+    webbrowser.open(url)
+    root.destroy()
+    return
 
 
 
