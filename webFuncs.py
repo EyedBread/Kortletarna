@@ -27,7 +27,7 @@ def webhallenFunc(url,name):
             print("Slut i weblager. Beställningsvara")
         elif webStock != 0:
             print("I lager")
-            stockTrue(url,name)
+            stockTrue(url,name,"webhallen")
             #Do something
 
 def inetFunc(url,name):
@@ -40,7 +40,7 @@ def inetFunc(url,name):
         #print(purchaseBox[0].button["class"])
         if "disabled" not in purchaseBox[0].button["class"]:
             print("I lager")
-            stockTrue(url,name)
+            stockTrue(url,name,"inet")
             #Update dataframe
         else:
             print("Slut i lager")
@@ -56,7 +56,7 @@ def proshopFunc(url,name):
             print("Slut i lager")
         elif "I lager" in purchaseBox.get_text():
             print("I lager")
-            stockTrue(url,name)
+            stockTrue(url,name,"proshop")
             #df = app.getdf()
             #df.loc[1, 'Proshop'] = 'I lager' # Trying to update the dataframe here
             
