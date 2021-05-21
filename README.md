@@ -3,19 +3,21 @@ A bot written in python, which looks for graphics card stock in the nordic marke
 
 ### Implemented Features
 - Get bot working on a basic level
+- Notification support (Slack)
+- Simple user interface
 
 ### Planed Features
-- Notification support
-- Simple user interface
+- Expanded GUI?
 
 ### Websites
 
 ##### Already supported
 - Webhallen.se
 - Inet.se
+- Proshop.se
 
 ##### Working on
-- Proshop.se
+- None
 
 #### Requested
 - None
@@ -24,3 +26,10 @@ A bot written in python, which looks for graphics card stock in the nordic marke
 see issues tab
 
 
+### Dependencies
+- TKinter
+- pandas
+- pandastable
+- beautifulsoup4
+- pyhthon3
+- requests (python requests)
