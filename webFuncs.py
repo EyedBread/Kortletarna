@@ -1,3 +1,4 @@
+from os import replace
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup as soup
 import sys
@@ -29,10 +30,15 @@ def webhallenFunc(card):
             print("Slut i weblager. Beställningsvara")
         elif webStock != 0:
             print("I lager")
+
+            # Transforms link from api page to actual product page (from https://www.webhallen.com/api/product/324223 to https://www.webhallen.com/se/product/324223)
+            url_api = card.url
+            card.url = card.url.replace("/api", "/se", 1)
+
             if MSG_SEND_SLACK: notification_slack(card.url,webStock)
             if MSG_POPUP_GUI: stockTrue(card)
 
-
+            card.url = url_api # Reset url to api link again
 
 def inetFunc(card):
     page_soup = parseHTML(card.url)
