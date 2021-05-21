@@ -1,3 +1,4 @@
+#Change these boolean values to whatever suits your preference
 MSG_SEND_SLACK = True
 MSG_POPUP_GUI = True
 WEBHOOK = "Insert_webhook_here"
