@@ -1,18 +1,15 @@
 import json
 import requests
+from config import WEBHOOK
 
 
 product_url = "mall" # Product page
 amount = 0
-
-#OBS!! Needs webhook adress to work (which can't be posted on gitHub)
-webhook_base = "https://hooks.slack.com/services/" # Slack bot
-webhook_identifier = "T020Y6B76FQ/B021B7N4AR1/0qr6MpkHIBHfXNVVHDo4MnWh"
-webhook_url = webhook_base + webhook_identifier
+webhook_url = WEBHOOK
 
 def notification_slack(product_url, amount):
     # Create message
-    message = str(amount) + " cards in stock: " + product_url
+    message = str(amount) + " or more cards in stock: " + product_url
     slack_data = {'text': message}
     data = json.dumps(slack_data)
 
