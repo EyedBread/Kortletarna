@@ -6,7 +6,7 @@ A bot written in python, which looks for graphics card stock in the nordic marke
 - Notification support (Slack)
 - Simple user interface
 
-### Planed Features
+### Planned Features
 - Expanded GUI?
 
 ### Websites
