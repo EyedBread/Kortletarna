@@ -1,3 +1,5 @@
+#OBS - Development is paused at the moment. But will hopefully continue soon.
+
 # Kort-letarna (GPU stock finder)
 A bot written in python, which looks for graphics card stock in the nordic market. To run it, run the stockChecker.py file. To configurate what kinds of notifications you would like to receive if a card is in stock, see the config.py file.
 
